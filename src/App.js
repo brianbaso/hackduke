@@ -15,9 +15,32 @@ import potato from './img/potato.png'
 import rice from './img/rice.png'
 import salad from './img/salad.jpeg'
 import tofu from './img/tofu.jpeg'
-
+import FoodMarket from './FoodMarket.js'
 
 class App extends Component {
+  // score.js inside src 
+  // add green div to score.js
+  // add constructor 
+  // init all state var to 100
+  constructor(props) {
+    super(props);
+     this.state = {
+      'cw': 1000,
+      'sqft': 100,
+      'gas': 20,
+      'feed': 100,
+      'waste': 50
+    };
+  }
+  _updateScore = (key, value) => {
+    //console.log('hello');
+    const newVal = this.state[key] - value;
+    //console.log(newVal);
+    //console.log(this.state);
+    const newState = {};
+    newState[key]=newVal;
+    this.setState(newState)
+  }
   render() {
     return (
       <div className="App">
@@ -25,44 +48,15 @@ class App extends Component {
           <h1 className="App-title">Earth Wallet</h1>
           <Container>
             <Row>
-              <Col><Badge color="success">100</Badge>Clean Water (gal)</Col>   
-              <Col><Badge color="success">100</Badge>Land (sqft)</Col>
-              <Col><Badge color="success">100</Badge>Greenhouse gas (lbs)</Col>
-              <Col><Badge color="success">100</Badge>Animal feed (lbs)</Col>
-              <Col><Badge color="success">100</Badge>Animal waste (lbs)</Col>
+              <Col><Badge color="success">{this.state.cw}</Badge>Clean Water (gal)</Col>   
+              <Col><Badge color="success">{this.state.sqft}</Badge>Land (sqft)</Col>
+              <Col><Badge color="success">{this.state.gas}</Badge>Greenhouse gas (lbs)</Col>
+              <Col><Badge color="success">{this.state.feed}</Badge>Animal feed (lbs)</Col>
+              <Col><Badge color="success">{this.state.waste}</Badge>Animal waste (lbs)</Col>
             </Row>
           </Container>
         </header>
-        <body>
-        <h2>Food Market</h2>
-          <Container>
-            <Row>
-              <Col><img src={apple}/><br />Apple</Col>
-              <Col><img src={bacon}/><br />Bacon</Col>
-              <Col><img src={beans}/><br />Beans</Col>
-              <Col><img src={chicken}/><br />Chicken</Col>
-            </Row>
-          </Container>
-
-          <Container>
-            <Row>
-              <Col><img src={corn}/><br />Corn</Col>
-              <Col><img src={hamburger}/><br />Hamburger</Col>
-              <Col><img src={lamb}/><br />Lamb chops</Col>
-              <Col><img src={orange}/><br />Orange</Col>
-            </Row>
-          </Container>
-
-          <Container>
-            <Row>
-              <Col><img src={potato}/><br />Potato</Col>
-              <Col><img src={rice}/><br />Rice</Col>
-              <Col><img src={salad}/><br />Salad</Col>
-              <Col><img src={tofu}/><br />Tofu</Col>
-            </Row>
-          </Container>
-          
-        </body>
+        <FoodMarket updateScore={this._updateScore}/>
 
       </div>
     );
